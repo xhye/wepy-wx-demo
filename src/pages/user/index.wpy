@@ -1,0 +1,45 @@
+<style lang="less">
+</style>
+
+<template>
+  <button @tap="toDemo">to demo</button>
+  <view class="container">
+    user
+  </view>
+  <button @tap="click">click me</button>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '个人中心'
+    }
+    components = {}
+
+    data = {}
+
+    computed = {}
+
+    methods = {
+      toDemo() {
+        wepy.navigateTo({
+          url: '/pages/index'
+        })
+      },
+      click() {
+        wepy.showToast({
+          title: '成功',
+          icon: 'success',
+          duration: 2000
+        })
+      }
+    }
+
+    events = {}
+
+    onLoad() {
+    }
+  }
+</script>

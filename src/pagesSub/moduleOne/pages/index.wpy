@@ -1,0 +1,30 @@
+<style lang="less">
+</style>
+
+<template>
+  <view class="container">
+    test subpackages
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: 'test'
+    }
+    components = {}
+
+    data = {}
+
+    computed = {}
+
+    methods = {}
+
+    events = {}
+
+    onLoad() {
+    }
+  }
+</script>

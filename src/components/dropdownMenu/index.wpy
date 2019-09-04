@@ -1,0 +1,201 @@
+<template>
+  <view class="dropDownMenu">
+    <view class="dropDownMenu-menus">
+      <block wx:for="{{menus}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+        <view class="dropDownMenu-menus-item" @tap="menuClick({{index}})">
+          <view class="{{item.show? 'active':''}}">{{item.name}}</view>
+          <image wx:if="{{item.show}}" src="./dropDownMenu-selecting.png"></image>
+          <image wx:if="{{!item.show}}" src="./dropDownMenu.png"></image>
+        </view>
+      </block>
+    </view>
+    <view class="dropDownMenu-content">
+      <block wx:for="{{menus}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+        <ul wx:if="{{item.show}}">
+          <block wx:for="{{item.menusItems}}" wx:for-index="idx" wx:for-item="it" wx:key="idx">
+            <li class="dropDownMenu-content-item" @tap="menusItemClick({{index}},{{idx}})">
+              <view class="dropDownMenu-content-item-content">
+                <span class="{{it.selected? 'active':''}}">{{it.name}}</span>
+                <view hidden="{{!it.selected}}">
+                  <image src="./selected.png"/>
+                </view>
+              </view>
+            </li>
+          </block>
+        </ul>
+      </block>
+    </view>
+    <view wx:if="{{show}}" class="dropDownMenu-mask" @tap="cancelDropDownMenu"></view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class DropDownMenu extends wepy.component {
+  props = {
+    menus: {
+      type: Object,
+      default: {}
+    }
+  }
+  data = {
+    show: false
+  }
+
+  methods = {
+    cancelDropDownMenu () {
+      this.commonCancelDropDownMenu()
+    },
+    menuClick(index) {
+      const length = this.menus.length
+      for (let i = 0; i < length; i++) {
+        const it = this.menus[i]
+        if (i === index) {
+          it.show = !it.show
+          if (!it.show) {
+            this.show = false
+          }
+        } else {
+          it.show = false
+        }
+      }
+      this.menus.forEach(it => {
+        if (it.show) {
+          this.show = it.show
+        }
+      })
+    },
+    menusItemClick (menu, item) {
+      this.menus[menu].menusItems.forEach(it => {
+        it.selected = false
+      })
+      this.menus[menu].menusItems[item].selected = true
+      this.commonCancelDropDownMenu()
+      this.$emit('menuChange', menu, item)
+      this.$apply()
+    }
+  }
+
+  onLoad () {}
+  commonCancelDropDownMenu () {
+    this.menus.forEach(it => {
+      it.show = false
+      this.show = false
+    })
+  }
+}
+</script>
+
+<style lang="less" scoped>
+ @keyframes showPanel
+ {
+    0%   {transform:scale(0.5);opacity:0.0;}
+   50%  {transform:scale(1.05);opacity:1.0;}
+   100% {transform:scale(1);opacity:1.0;}
+ }
+ @keyframes showPanel2 {
+   from {
+     transform: translateY(45px);
+   }
+   to {
+     transform: translateY(0px);
+   }
+ }
+.dropDownMenu{
+  height: 45px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+  &-menus{
+    z-index: 999;
+    background: white;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1rpx solid #EFEFF4;
+    &-item{
+      height: 100%;
+      width: 50%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      font-size: 28rpx;
+      color: #333333;
+      image{
+        width: 10px;
+        height: 6px;
+        margin-left: 5px;
+      }
+    }
+  }
+  &-content{
+    position: absolute;
+    top: 45px;
+    background: white;
+    z-index: 999;
+    height: fit-content;
+    width: 100%;
+    :first-child{
+      /*border-top: 0.1rpx solid #EFEFF4;*/
+    }
+    :last-child{
+      border-bottom: none !important;
+    }
+    &-item{
+      width: 100%;
+      border-bottom: 1rpx solid #EFEFF4;
+      height: fit-content;
+      background-color: white;
+
+      /*animation: showPanel 0.3s ease;*/
+      /*-moz-animation: showPanel 0.3s ease-in;*/
+      /*-webkit-animation: showPanel 0.3s ease;*/
+
+      /*animation: showPanel2 0.5s 1;*/
+      /*!*animation-fill-mode: forwards;*!*/
+      &-content{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        span{
+          width: 85%;
+          color: #333333;
+        }
+        view{
+          flex: 1;
+          image{
+            width: 14px;
+            height: 10px;
+          }
+        }
+      }
+    }
+    ul{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      /*border-top: 1rpx solid #EFEFF4;*/
+      li{
+        padding: 25rpx 30rpx;
+        font-size: 24rpx;
+        color: #999999;
+      }
+    }
+  }
+  &-mask{
+    position: fixed;
+    width: 100vh;
+    height: 100vh;
+    z-index: 888;
+    background-color: rgba(76, 76, 76, 0.4);
+  }
+  .active{
+    color: #217AED;
+  }
+}
+</style>

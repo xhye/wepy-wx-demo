@@ -1,0 +1,47 @@
+<template>
+  <view class="loadmore page__bd">
+    <view wx:if="{{loadMore.loadMore}}" class="loadmore-item" @tap="loadMoreClick">
+      <view class="page__desc"><text style="color: #3388ff">加载更多</text></view>
+    </view>
+    <view wx:if="{{loadMore.loading}}" class="loadmore-item">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+    <view wx:if="{{loadMore.noData}}" class="loadmore-item weui-loadmore_line">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+    </view>
+    <view  wx:if="{{loadMore.end}}" class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line weui-loadmore__tips_in-dot"></view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class InfoPanel extends wepy.component {
+  props = {
+    loadMore: {type: Object, default: {loadMore: false, loading: false, noData: false, end: false}}
+  }
+  methods = {
+    loadMoreClick () {
+      this.$emit('loadMore')
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+.loadmore{
+  background-color: transparent;
+  &-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30rpx 0;
+    font-size: 24rpx;
+  }
+}
+.weui-loadmore__tips_in-line {
+  background-color: transparent !important;
+}
+</style>

@@ -1,0 +1,67 @@
+<style lang="less">
+</style>
+
+<template>
+  <view class="container">
+    index
+    <dialog id="dialog"
+            title="温馨提示"
+            content="您就是我的Master吗？"
+            cancelText="滚！"
+            confirmText="是的,Saber!"
+            @cancelEvent="cancelEvent"
+            @okEvent="okEvent"></dialog>
+  </view>
+  <button @tap="click">click me</button>
+  <button @tap="showDialog">click me show dialog</button>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Api from '@/api'
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '首页',
+      usingComponents: {
+        'dialog': '/components/dialog/index'
+      }
+    }
+    components = {}
+
+    data = {}
+
+    computed = {}
+
+    methods = {
+      showDialog() {
+        this.dialog.show()
+      },
+      click() {
+        console.log(Api)
+        wepy.showToast({
+          title: '成功',
+          icon: 'success',
+          duration: 2000
+        })
+        let i = 1
+        let map = ['MA==', 'MQo=', 'Mg==', 'Mw==', 'NA==', 'NQ==', 'Ng==', 'Nw==', 'OA==', 'OQ==']
+        while (i--) {
+          const params = {}
+          const op = {}
+          op.load = true
+          params.url = 'https://www.madcoder.cn/tests/sleep.php?time=1&t=css&c=' + map[i] + '&i=' + i
+          Api.logout(params, op).then(res => {
+            console.log(params.url, res)
+          })
+        }
+      }
+    }
+
+    events = {}
+
+    onReady() {}
+    onLoad() {
+
+    }
+  }
+</script>

@@ -1,0 +1,19 @@
+{
+	"description": "create by rose wepy-wx-demo",
+	"setting": {
+		"urlCheck": false,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"compileType": "miniprogram",
+	"appid": "wx09cbb79fdd4ae0c1",
+	"projectname": "wepy-wx-demo",
+	"miniprogramRoot": "dist/",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"libVersion": "2.7.4",
+	"condition": {}
+}

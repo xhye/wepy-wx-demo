@@ -1,0 +1,165 @@
+<template>
+  <view class="dialog" hidden="{{!isShow}}">
+    <view class="dialog-mask"></view>
+    <view class="dialog-dialog">
+      <view class="dialog-dialog-title">{{title}}</view>
+      <view class="dialog-dialog-content">{{content}}</view>
+      <view class="dialog-dialog-btns">
+        <view class="dialog-dialog-btns-btn">{{cancelText}}</view>
+        <view class="dialog-dialog-btns-btn dialog-dialog-btns-btn-confirm">{{confirmText}}</view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Dialog extends wepy.component {
+  props = {
+    title: {
+      type: String,
+      default: '弹窗标题'
+    },
+    content: {
+      type: String,
+      default: '弹窗内容'
+    },
+    showCancel: {
+      type: Boolean,
+      default: true
+    },
+    showConfirm: {
+      type: Boolean,
+      default: true
+    },
+    cancelText: {
+      type: String,
+      default: '取消'
+    },
+    confirmText: {
+      type: String,
+      default: '确定'
+    }
+  }
+
+  data = {
+    isShow: false
+  }
+
+  methods = {}
+
+  show () {
+    this.isShow = true
+  }
+  close () {
+    this.isShow = false
+  }
+}
+</script>
+
+<style lang="less" scoped>
+.dialog {
+  &-mask {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  &-dialog {
+    position: fixed;
+    z-index: 5000;
+    width: 80%;
+    max-width: 300px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #FFFFFF;
+    text-align: center;
+    border-radius: 3px;
+    overflow: hidden;
+
+    &-title {
+      padding: 1.3em 1.6em 0.5em;
+      font-weight: 400;
+      font-size: 18px;
+    }
+
+    &-content {
+      padding: 0 1.6em 0.8em;
+      min-height: 40px;
+      font-size: 15px;
+      line-height: 1.3;
+      word-wrap: break-word;
+      word-break: break-all;
+      color: #808080;
+    }
+
+    &-btns {
+      position: relative;
+      line-height: 48px;
+      font-size: 18px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+
+      :after {
+        content: " ";
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        height: 1px;
+        border-top: 1px solid #D5D5D6;
+        color: #D5D5D6;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+      }
+
+      &-btn {
+        position: relative;
+        display: block;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        color: #353535;
+        line-height: 48px;
+        font-size: 18px;
+        text-decoration: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+        :active {
+          background-color: #eee;
+        }
+
+        :after {
+          content: " ";
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1px;
+          bottom: 0;
+          border-left: 1px solid #D5D5D6;
+          color: #D5D5D6;
+          -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+          -webkit-transform: scaleX(0.5);
+          transform: scaleX(0.5);
+        }
+
+        &-confirm {
+          color: #09BB07;
+        }
+      }
+    }
+  }
+}
+
+</style>

@@ -1,0 +1,58 @@
+<template>
+  <view class="demo">
+    <!--<view style="text-align: center">VantUI引用Demo</view>-->
+    <!--<view>-->
+      <!--<van-button size="large" type="primary">按钮</van-button>-->
+      <!--<van-cell-group>-->
+        <!--<van-field-->
+          <!--value="{{ value }}"-->
+          <!--placeholder="请输入用户名"-->
+          <!--border="{{ false }}"-->
+          <!--bind:change="onChange"-->
+        <!--/>-->
+      <!--</van-cell-group>-->
+    <!--</view>-->
+    <!--<view>-->
+      <!--<demoLoadMore :loadMore="loadMore"></demoLoadMore>-->
+    <!--</view>-->
+  </view>
+
+</template>
+
+<script>
+import wepy from 'wepy'
+import LoadMore from '../../components/loadmore'
+// import Api from '@/api'
+
+export default class Index extends wepy.page {
+  config = {
+    navigationBarTitleText: '微+司法行政', // 行政立法
+    usingComponents: {
+      'van-button': '../../components/vant/button/index',
+      'van-field': '../../components/vant/field/index'
+    }
+  }
+  components = {
+    demoLoadMore: LoadMore
+  }
+
+  data = {
+    loadMore: {loadMore: true, loading: true, noData: true, end: true}
+  }
+
+  computed = {}
+
+  methods = {}
+
+  events = {}
+
+  onLoad() {
+  }
+}
+</script>
+<style lang="less">
+.demo{
+  height: 100%;
+  width: 100%;
+}
+</style>

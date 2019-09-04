@@ -1,0 +1,53 @@
+<template>
+  <view class="info_panel">
+    <view class="info_panel_head">
+      <view class="info_panel_icon">
+        <icon type="warn" size="30rpx" color="#FFBE00"></icon>
+      </view>
+      <text class="info_panel_title">{{title}}</text>
+    </view>
+    <view class="info_panel_content">{{content}}</view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class Tips extends wepy.component {
+  props = {
+    title: String,
+    content: String
+  }
+}
+</script>
+
+<style lang="less" scoped>
+.info_panel {
+  width: 100%;
+  box-sizing: border-box;
+  background: white;
+  padding: 30rpx 40rpx;
+  .info_panel_head {
+    @height: 30rpx;
+    display: flex;
+    margin: 10rpx 0;
+    .info_panel_icon {
+      line-height: @height;
+      height: @height;
+      margin-right: 10rpx;
+    }
+    .info_panel_title {
+      color: #fba83d;
+      font-weight: bold;
+      font-size: 30rpx;
+      height: @height;
+      line-height: @height;
+    }
+  }
+  .info_panel_content {
+    color: #65799b;
+    font-size: 30rpx;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+</style>
